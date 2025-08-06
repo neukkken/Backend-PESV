@@ -1,0 +1,1 @@
+import { getAllRoles } from "../controllers/roles.controller.js";

@@ -1,0 +1,24 @@
+name: Marcar Formularios Faltantes
+
+on:
+  schedule:
+    - cron: "0 14 * * *" # Se ejecuta todos los días a las 9:00 AM en Colombia (14:00 UTC)
+  workflow_dispatch: # Permite ejecución manual desde GitHub
+
+jobs:
+  marcar_faltantes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Llamar API de Vercel
+        run: |
+          echo "⏳ Iniciando solicitud a la API..."
+          RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST https://backend-pesv.vercel.app/pesv/preoperacional/marcar-faltantes-pesv)
+          echo "📡 Respuesta del servidor: $RESPONSE"
+          
+          # Leer el contenido de response.txt (solo si la respuesta no es vacía)
+          if [ -s response.txt ]; then
+            echo "📄 Respuesta detallada:"
+            cat response.txt
+          else
+            echo "⚠️ No se recibió respuesta del servidor."
+          fi
