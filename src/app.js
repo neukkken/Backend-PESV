@@ -24,7 +24,7 @@ app.use(morgan("dev"));
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://front-end-pesv.vercel.app",
+  "https://efagram-pesv.vercel.app",
 ];
 
 app.use(
